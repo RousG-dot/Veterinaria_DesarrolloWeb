@@ -98,6 +98,7 @@
                 <p class="header-subtitle">Ingrese los datos para incorporar al sistema</p>
                 
                 <form action="MascotaServlet" method="POST">
+                    <input type="hidden" name="accion" value="registrar">
                     <div class="form-group">
                         <label>Nombre de la Mascota</label>
                         <input type="text" name="txtnombre" placeholder="Ej. Bobby" required>
