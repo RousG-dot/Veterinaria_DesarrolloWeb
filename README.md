@@ -35,4 +35,4 @@ En este avance se ha implementado la estructura base del sistema, incluyendo aut
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/tu-repositorio.git
+https://github.com/RousG-dot/Veterinaria_DesarrolloWeb.git
