@@ -1,4 +1,4 @@
-    :root {
+:root {
         --primary: #0f766e;
         --primary-hover: #0d9488;
         --sidebar-bg: #1e293b;
@@ -86,11 +86,16 @@ body {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border);
 }
-
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
 .header-title {
     font-size: 1.5rem;
     font-weight: 600;
-    margin: 0 0 24px 0;
+    margin: 0;
 }
 
 table {

@@ -1,3 +1,8 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.pe.vet.veterinaria.model.Producto" %>
+<%@ page import="com.pe.vet.veterinaria.dao.ProductoDAO" %>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -6,8 +11,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Inventario - PetSociety</title>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inventario.css">
-
+        <link rel="stylesheet" href="css/inventario.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
     <body>
         <aside class="sidebar">
@@ -34,31 +39,59 @@
 
         <main class="main-content">
             <div class="card">
-                <h1 class="header-title">Inventario de Medicamentos</h1>
-                <table>
+              <div class="header-flex">
+                <h1 class="header-title">Inventario</h1>
+                <button type="button"  class="btn btn-primary" onclick="window.location.href='registroInventario.jsp'">
+                Nuevo Producto</button>
+
+            </div>
+            <table>
                     <thead>
                         <tr>
-                            <th>Producto</th>
-                            <th>Categoría</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
                             <th>Stock</th>
+                            <th>Categoria</th>
                             <th>Estado</th>
+
                         </tr>
                     </thead>
                     <tbody>
+                        <%
+                             ProductoDAO dao = new ProductoDAO();
+                                List<Producto> lista = dao.listar();
+
+                                for (Producto p : lista){
+
+                        %>
                         <tr>
-                            <td>Antipulgas</td>
-                            <td>Farmacia</td>
-                            <td>15 unidades</td>
-                            <td><span class="badge badge-success">Disponible</span></td>
+                            <td><%= p.getId()  %></td>
+                            <td><%= p.getNombre() %></td>
+                            <td><%= p.getPrecio() %></td>
+                            <td><%= p.getStock() %></td>
+                            <td><%= p.getCategoria() %></td>
+                            <td><%= p.isEstado()? "Disponible" : "Agotado" %></td>
+
+                            <td>
+                                 <div class="action-buttons">
+                                 <a href="editarProducto.jsp?id=<%= p.getId() %>&nombre=<%= p.getNombre() %>&estado=<%=p.isEstado() %>&precio=<%= p.getPrecio() %>&stock=<%= p.getStock() %>&categoria=<%= p.getCategoria() %>" class="btn-action btn-edit">Editar</a>
+
+                                 <form action="ProductoServlet" method="POST" class="inline-form" onsubmit="return confirm('¿Estás seguro de eliminar este producto?')">
+                                 <input type="hidden" name="accion" value="eliminar">
+                                 <input type="hidden" name="id" value="<%= p.getId() %>">
+                                 <button type="submit" class="btn-action btn-delete">Eliminar</button>
+                                </form>
+                               </div>
+                            </td>
+
                         </tr>
-                        <tr>
-                            <td>Vacuna Triple Felina</td>
-                            <td>Vacunas</td>
-                            <td>5 unidades</td>
-                            <td><span class="badge badge-warning">Stock Bajo</span></td>
-                        </tr>
+                        <%
+
+                            }
+                        %>
                     </tbody>
-                </table>
+            </table>
 
                 <div class="action-footer">
                     <a href="panelAdmin.jsp" class="btn-return">
