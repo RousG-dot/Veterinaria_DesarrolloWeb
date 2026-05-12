@@ -170,3 +170,47 @@ td {
     background: #f0fdfa;
     transform: translateX(-4px);
 }
+
+button.btn-edit {
+    background-color: #93c5fd;
+}
+
+button.btn-delete {
+    background: #da5959;
+}
+
+.btn-action{
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.action-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.inline-form{
+    margin: 0;
+    display: inline;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background: var(--primary-hover);
+}

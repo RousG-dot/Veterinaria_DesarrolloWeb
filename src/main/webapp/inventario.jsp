@@ -11,8 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Inventario - PetSociety</title>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/inventario.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/inventario.css?v=2">
     </head>
     <body>
         <aside class="sidebar">
@@ -54,7 +53,7 @@
                             <th>Stock</th>
                             <th>Categoria</th>
                             <th>Estado</th>
-
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,8 +73,17 @@
                             <td><%= p.isEstado()? "Disponible" : "Agotado" %></td>
 
                             <td>
-                                 <div class="action-buttons">
-                                 <a href="editarProducto.jsp?id=<%= p.getId() %>&nombre=<%= p.getNombre() %>&estado=<%=p.isEstado() %>&precio=<%= p.getPrecio() %>&stock=<%= p.getStock() %>&categoria=<%= p.getCategoria() %>" class="btn-action btn-edit">Editar</a>
+                                 <form action="editarInventario.jsp" method="GET" class="inline-form">
+
+                                     <input type="hidden" name="id" value="<%= p.getId() %>">
+                                     <input type="hidden" name="nombre" value="<%= p.getNombre() %>">
+                                     <input type="hidden" name="estado" value="<%= p.isEstado() %>">
+                                     <input type="hidden" name="precio" value="<%= p.getPrecio() %>">
+                                     <input type="hidden" name="stock" value="<%= p.getStock() %>">
+                                     <input type="hidden" name="categoria" value="<%= p.getCategoria() %>">
+
+                                     <button type="submit" class="btn-action btn-edit">Editar</button>
+                                 </form>
 
                                  <form action="ProductoServlet" method="POST" class="inline-form" onsubmit="return confirm('¿Estás seguro de eliminar este producto?')">
                                  <input type="hidden" name="accion" value="eliminar">

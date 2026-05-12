@@ -32,7 +32,14 @@ public class ProductoServlet extends HttpServlet {
 
             boolean estado = request.getParameter("txtestado")!=null;
 
-                Producto p = new Producto(0,nombre,estado, precio, stock, categoria);
+                Producto p = new Producto(
+                        0,
+                        nombre,
+                        estado,
+                        precio,
+                        stock,
+                        categoria
+                );
 
                 dao.registrar(p);
 
@@ -41,7 +48,47 @@ public class ProductoServlet extends HttpServlet {
             System.out.println("ENTRÓ AL SERVLET");
 
         }
+
+        else if ("actualizar".equals(accion)) {
+
+            int id = Integer.parseInt(
+                    request.getParameter("id")
+            );
+
+            String nombre = request.getParameter("txtnombre");
+            double precio = Double.parseDouble(request.getParameter("txtprecio"));
+            int stock = Integer.parseInt(request.getParameter("txtstock"));
+            String categoria = request.getParameter("txtcategoria");
+            boolean estado = request.getParameter("txtestado") != null;
+
+            Producto p = new Producto(
+                    id,
+                    nombre,
+                    estado,
+                    precio,
+                    stock,
+                    categoria
+            );
+
+            dao.actualizar(p);
+
+            response.sendRedirect("inventario.jsp");
+        }
+
+
+        else if ("eliminar".equals(accion)) {
+
+            int id = Integer.parseInt(
+                    request.getParameter("id")
+            );
+
+            dao.eliminar(id);
+
+            response.sendRedirect("inventario.jsp");
+        }
     }
+
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
