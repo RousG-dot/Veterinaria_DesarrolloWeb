@@ -1,9 +1,15 @@
+com\pe\vet\veterinaria\dao\ClienteDAO.class
 com\pe\vet\veterinaria\dao\UsuarioDAO.class
 com\pe\vet\veterinaria\servlet\MascotaServlet.class
+config\Conexion.class
 com\pe\vet\veterinaria\dao\MascotaDAO.class
+com\pe\vet\veterinaria\servlet\ProductoServlet.class
+com\pe\vet\veterinaria\model\Producto.class
 com\pe\vet\veterinaria\util\Conexion.class
+com\pe\vet\veterinaria\dao\ProductoDAO.class
 com\pe\vet\veterinaria\model\Usuario.class
 com\pe\vet\veterinaria\TestConexion.class
-config\Conexion.class
+com\pe\vet\veterinaria\model\Cliente.class
+com\pe\vet\veterinaria\servlet\ClienteServlet.class
 com\pe\vet\veterinaria\servlet\LoginServlet.class
 com\pe\vet\veterinaria\model\Mascota.class
