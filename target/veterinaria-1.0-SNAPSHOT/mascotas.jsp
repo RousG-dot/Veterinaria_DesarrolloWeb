@@ -9,98 +9,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pacientes - PetSociety</title>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-        <style>
-            :root {
-                --primary: #0f766e;
-                --primary-hover: #0d9488;
-                --sidebar-bg: #1e293b;
-                --sidebar-hover: #334155;
-                --bg: #f1f5f9;
-                --surface: #ffffff;
-                --text-main: #0f172a;
-                --text-light: #64748b;
-                --border: #e2e8f0;
-                --danger: #ef4444;
-            }
-            body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
-            .sidebar { width: 260px; background: var(--sidebar-bg); color: white; display: flex; flex-direction: column; flex-shrink: 0; }
-            .sidebar-header { padding: 24px; font-size: 1.25rem; font-weight: 600; border-bottom: 1px solid var(--sidebar-hover); letter-spacing: 0.5px; }
-            .nav-links { display: flex; flex-direction: column; padding: 16px 0; flex: 1; }
-            .nav-link { padding: 16px 24px; color: #cbd5e1; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: all 0.2s ease; font-weight: 500; }
-            .nav-link:hover { background: var(--sidebar-hover); color: white; }
-            .nav-link.active { background: var(--sidebar-hover); color: white; border-left: 4px solid var(--primary); }
-            .nav-link.danger { margin-top: auto; color: #fca5a5; }
-            .nav-link.danger:hover { background: rgba(239, 68, 68, 0.1); color: var(--danger); border-left-color: var(--danger); }
-            
-            .main-content { flex: 1; padding: 40px; overflow-y: auto; box-sizing: border-box; }
-            .card { background: var(--surface); border-radius: 12px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid var(--border); }
-            
-            .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-            .header-title { font-size: 1.5rem; font-weight: 600; margin: 0; }
-            
-            .btn-primary { background: var(--primary); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background 0.2s; border: none; cursor: pointer; }
-            .btn-primary:hover { background: var(--primary-hover); }
-            
-            table { width: 100%; border-collapse: collapse; }
-            th, td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border); }
-            th { background: #f8fafc; font-weight: 600; color: var(--text-light); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; }
-            tr:hover td { background: #f1f5f9; }
-            td { font-size: 0.9rem; vertical-align: middle; }
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mascotas.css">
 
-            .action-buttons {
-                display: flex;
-                gap: 8px;
-            }
-
-            .btn-action {
-                padding: 6px 12px;
-                border-radius: 6px;
-                font-size: 0.85rem;
-                font-weight: 500;
-                cursor: pointer;
-                text-decoration: none;
-                border: 1px solid transparent;
-                transition: all 0.2s ease;
-            }
-
-            .btn-edit { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
-            .btn-edit:hover { background: #dbeafe; border-color: #93c5fd; }
-            .btn-delete { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
-            .btn-delete:hover { background: #fee2e2; border-color: #fca5a5; }
-
-            form.inline-form { margin: 0; display: inline-block; }
-
-            .action-footer {
-                margin-top: 24px;
-                padding-top: 20px;
-                border-top: 1px solid var(--border);
-                display: flex;
-                justify-content: flex-start;
-            }
-            .btn-return {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text-light);
-                text-decoration: none;
-                font-weight: 500;
-                font-size: 0.9rem;
-                padding: 8px 12px;
-                border-radius: 6px;
-                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                background: transparent;
-            }
-            .btn-return:hover {
-                color: var(--primary-hover);
-                background: #f0fdfa;
-                transform: translateX(-4px);
-            }
-        </style>
     </head>
     <body>
         <aside class="sidebar">
             <div class="sidebar-header">PetSociety Admin</div>
             <nav class="nav-links">
+                <a href="cliente.jsp" class="nav-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                    Clientes
                 <a href="mascotas.jsp" class="nav-link active">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     Mascotas
