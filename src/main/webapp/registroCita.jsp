@@ -35,6 +35,16 @@
             <div class="form-card">
                 <h1 class="header-title">Programar Cita Médica</h1>
                 
+                
+                <form 
+                    action="CitaServlet" method="post">
+                    <div 
+                    class="form-group">
+                <label>Cliente</label>
+                
+                <input type="text" name="cliente" required>
+                   </div>
+                
                 <form>
                     <div class="form-group">
                         <label>Seleccionar Mascota</label>

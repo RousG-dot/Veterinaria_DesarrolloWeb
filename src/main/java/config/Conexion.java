@@ -11,7 +11,7 @@ public class Conexion {
     // Puerto 3307 según lo que configuramos ayer
     String url = "jdbc:mysql://localhost:3306/db_veterinaria";
     String user = "root";
-    String pass = "root"; // Tu contraseña de MySQL (si no tienes, déjalo vacío "")
+    String pass = ""; // Tu contraseña de MySQL (si no tienes, déjalo vacío "")
 
     public Connection getConnection() {
         try {
