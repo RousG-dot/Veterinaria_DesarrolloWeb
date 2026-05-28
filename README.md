@@ -86,7 +86,7 @@ git clone https://github.com/RousG-dot/Veterinaria_DesarrolloWeb.git
 
 Importar el archivo:
 ```text
-database/veterinaria_db.sql
+database/db_veterinaria.sql
 ```
 en MySQL mediante phpMyAdmin o MySQL Workbench.
 
