@@ -68,11 +68,11 @@ src/main/webapp
 
 La base de datos utilizada es:
 ```text
-veterinaria_db
+db_veterinaria
 ```
 El archivo SQL se encuentra incluido dentro de:
 ```text
-database/veterinaria_db.sql
+database/db_veterinaria.sql
 ```
 ## ▶️ Pasos de Ejecución
 
