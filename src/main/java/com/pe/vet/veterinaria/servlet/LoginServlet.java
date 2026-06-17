@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
             // SI DATOS CORRECTOS: Creamos sesión y vamos al panel
             HttpSession session = request.getSession();
             session.setAttribute("usuarioLogueado", user);
-            response.sendRedirect("panelAdmin.jsp");
+            response.sendRedirect(request.getContextPath() + "/jsf/dashboard.xhtml");
         } else {
             // SI DATOS INCORRECTOS: Enviamos mensaje de error al login
             request.setAttribute("error", "Correo o contraseña incorrectos");
