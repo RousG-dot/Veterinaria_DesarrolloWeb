@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
 
-/**
- *
- * @author JOSUÉ
- */
 public class ClienteDAO {
     
         public boolean registrar(Cliente c) {

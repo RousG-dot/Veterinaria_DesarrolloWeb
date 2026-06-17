@@ -1,8 +1,7 @@
 package com.pe.vet.veterinaria.dao;
 
 import com.pe.vet.veterinaria.model.Cita;
-import config.Conexion; 
-
+import com.pe.vet.veterinaria.util.Conexion; 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,11 +14,11 @@ public class CitaDAO {
     public List<Cita> listar() {
         List<Cita> lista = new ArrayList<>();
         String sql = "SELECT * FROM citas";
-        try {
-            Conexion cn = new Conexion();
-            Connection con = cn.getConnection(); // 👈 usa getConnection()
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        
+        // Uso de Try-With-Resources: Java cierra automáticamente la conexión y el statement
+        try (Connection con = Conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Cita c = new Cita();
@@ -31,8 +30,6 @@ public class CitaDAO {
                 c.setMotivo(rs.getString("motivo"));
                 lista.add(c);
             }
-
-            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,10 +39,9 @@ public class CitaDAO {
     // Registrar nueva cita
     public boolean registrar(Cita c) {
         String sql = "INSERT INTO citas (cliente, mascota, fecha, hora, motivo) VALUES (?,?,?,?,?)";
-        try {
-            Conexion cn = new Conexion();
-            Connection con = cn.getConnection(); // 👈 usa getConnection()
-            PreparedStatement ps = con.prepareStatement(sql);
+        
+        try (Connection con = Conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, c.getCliente());
             ps.setString(2, c.getMascota());
@@ -54,7 +50,6 @@ public class CitaDAO {
             ps.setString(5, c.getMotivo());
 
             int filas = ps.executeUpdate();
-            con.close();
             return filas > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,10 +60,9 @@ public class CitaDAO {
     // Actualizar cita
     public boolean actualizar(Cita c) {
         String sql = "UPDATE citas SET cliente=?, mascota=?, fecha=?, hora=?, motivo=? WHERE id=?";
-        try {
-            Conexion cn = new Conexion();
-            Connection con = cn.getConnection(); // 👈 usa getConnection()
-            PreparedStatement ps = con.prepareStatement(sql);
+        
+        try (Connection con = Conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, c.getCliente());
             ps.setString(2, c.getMascota());
@@ -78,7 +72,6 @@ public class CitaDAO {
             ps.setInt(6, c.getId());
 
             int filas = ps.executeUpdate();
-            con.close();
             return filas > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,14 +82,12 @@ public class CitaDAO {
     // Eliminar cita
     public boolean eliminar(int id) {
         String sql = "DELETE FROM citas WHERE id=?";
-        try {
-            Conexion cn = new Conexion();
-            Connection con = cn.getConnection(); // 👈 usa getConnection()
-            PreparedStatement ps = con.prepareStatement(sql);
+        
+        try (Connection con = Conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             int filas = ps.executeUpdate();
-            con.close();
             return filas > 0;
         } catch (Exception e) {
             e.printStackTrace();

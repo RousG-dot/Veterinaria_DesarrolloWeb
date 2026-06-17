@@ -42,8 +42,21 @@
                 <form>
                     <div class="form-group">
                         <label>Seleccionar Mascota</label>
-                        <select>
-                            <option>Cargando mascotas...</option>
+                        <select name="idMascota" required>
+                            <option value="">Seleccione una mascota</option>
+
+                            <%
+                                com.pe.vet.veterinaria.dao.MascotaDAO mascotaDAO = new com.pe.vet.veterinaria.dao.MascotaDAO();
+                                java.util.List<com.pe.vet.veterinaria.model.Mascota> mascotas = mascotaDAO.listar();
+
+                                for (com.pe.vet.veterinaria.model.Mascota mascota : mascotas) {
+                            %>
+                                <option value="<%= mascota.getId() %>">
+                                    <%= mascota.getNombre() %> - <%= mascota.getEspecie() %>
+                                </option>
+                                    <%
+                                }
+                                    %>      
                         </select>
                     </div>
                     
@@ -54,7 +67,26 @@
                     
                     <div class="form-group">
                         <label>Hora</label>
-                        <input type="time" required>
+                        <select name="hora" required>
+                            <option value="">Seleccione una hora</option>
+                            <option value="09:00">09:00 AM</option>
+                            <option value="09:30">09:30 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="10:30">10:30 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="11:30">11:30 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="12:30">12:30 PM</option>
+                            <option value="13:00">01:00 PM</option>
+                            <option value="13:30">01:30 PM</option>
+                            <option value="14:00">02:00 PM</option>
+                            <option value="14:30">02:30 PM</option>
+                            <option value="15:00">03:00 PM</option>
+                            <option value="15:30">03:30 PM</option>
+                            <option value="16:00">04:00 PM</option>
+                            <option value="16:30">04:30 PM</option>
+                            <option value="17:00">05:00 PM</option>
+                        </select>
                     </div>
                     
                     <div class="form-group">

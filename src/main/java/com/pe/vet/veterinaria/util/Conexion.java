@@ -2,7 +2,7 @@ package com.pe.vet.veterinaria.util;
 import java.sql.*;
 
 public class Conexion {
-    private static final String URL = "jdbc:mysql://Localhost:3306/db_veterinaria"; // Puerto 3307 y BD correcta
+    private static final String URL = "jdbc:mysql://Localhost:3307/db_veterinaria"; // Puerto 3307 y BD correcta
     private static final String USER = "root";
     private static final String PASSWORD = ""; // El que usas en MySQL
 

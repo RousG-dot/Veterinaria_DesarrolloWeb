@@ -2,7 +2,6 @@ package com.pe.vet.veterinaria.dao;
 
 import com.pe.vet.veterinaria.model.Producto;
 import com.pe.vet.veterinaria.util.Conexion;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

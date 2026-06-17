@@ -1,15 +1,17 @@
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\dao\MascotaDAO.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\config\Conexion.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\model\Producto.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\servlet\ProductoServlet.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\servlet\ClienteServlet.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\servlet\LoginServlet.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\TestConexion.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\util\Conexion.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\dao\ProductoDAO.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\model\Cliente.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\servlet\MascotaServlet.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\dao\UsuarioDAO.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\dao\ClienteDAO.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\model\Mascota.java
-C:\Users\JOSUÉ\Documents\Desarrollo Web Integrado\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\model\Usuario.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\TestConexion.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\model\Mascota.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\servlet\ProductoServlet.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\model\Usuario.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\model\Cita.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\dao\MascotaDAO.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\servlet\CitaServlet.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\model\Producto.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\model\Cliente.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\servlet\LoginServlet.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\dao\ProductoDAO.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\servlet\MascotaServlet.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\dao\CitaDAO.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\servlet\ClienteServlet.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\dao\ClienteDAO.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\dao\UsuarioDAO.java
+C:\Users\Ruth\Documents\NetBeansProjects\Veterinaria_DesarrolloWeb\src\main\java\com\pe\vet\veterinaria\util\Conexion.java
