@@ -15,11 +15,19 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+-- ------------------------------------------------------
+-- Eliminación de tablas en orden inverso para evitar conflictos de FK
+-- ------------------------------------------------------
+DROP TABLE IF EXISTS `citas`;
+DROP TABLE IF EXISTS `productos`;
+DROP TABLE IF EXISTS `mascotas`;
+DROP TABLE IF EXISTS `clientes`;
+DROP TABLE IF EXISTS `usuarios`;
+
 --
 -- Table structure for table `clientes`
 --
 
-DROP TABLE IF EXISTS `clientes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clientes` (
@@ -47,7 +55,6 @@ UNLOCK TABLES;
 -- Table structure for table `mascotas`
 --
 
-DROP TABLE IF EXISTS `mascotas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mascotas` (
@@ -56,7 +63,10 @@ CREATE TABLE `mascotas` (
   `especie` varchar(30) DEFAULT NULL,
   `raza` varchar(50) DEFAULT NULL,
   `dueno` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `cliente_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_mascotas_cliente_idx` (`cliente_id`),
+  CONSTRAINT `fk_mascotas_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -66,7 +76,7 @@ CREATE TABLE `mascotas` (
 
 LOCK TABLES `mascotas` WRITE;
 /*!40000 ALTER TABLE `mascotas` DISABLE KEYS */;
-INSERT INTO `mascotas` VALUES (1,'Moti','Perro','Bichón Maltés','Rous Guevara'),(2,'Bobby','Gato','Persa','Juan Aguilar Rodriguez');
+INSERT INTO `mascotas` VALUES (1,'Moti','Perro','Bichón Maltés','Rous Guevara',1),(2,'Bobby','Gato','Persa','Juan Aguilar Rodriguez',2);
 /*!40000 ALTER TABLE `mascotas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,7 +84,6 @@ UNLOCK TABLES;
 -- Table structure for table `productos`
 --
 
-DROP TABLE IF EXISTS `productos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `productos` (
@@ -101,7 +110,6 @@ UNLOCK TABLES;
 -- Table structure for table `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
@@ -123,8 +131,31 @@ LOCK TABLES `usuarios` WRITE;
 INSERT INTO `usuarios` VALUES (1,'admin@petsociety.com','admin123','ADMIN');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+--
+-- Table structure for table `citas`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `citas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cliente` varchar(100) NOT NULL,
+  `mascota` varchar(100) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `motivo` varchar(255) DEFAULT NULL,
+  `cliente_id` int(11) DEFAULT NULL,
+  `mascota_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_citas_cliente_idx` (`cliente_id`),
+  KEY `fk_citas_mascota_idx` (`mascota_id`),
+  CONSTRAINT `fk_citas_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_citas_mascotas` FOREIGN KEY (`mascota_id`) REFERENCES `mascotas` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

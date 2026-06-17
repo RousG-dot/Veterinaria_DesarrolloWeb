@@ -1,73 +1,85 @@
 package com.pe.vet.veterinaria.servlet;
 
-import com.pe.vet.veterinaria.dao.ClienteDAO;
-import com.pe.vet.veterinaria.model.Cliente;
+import com.pe.vet.veterinaria.dto.ClienteDTO;
+import com.pe.vet.veterinaria.service.ClienteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-/**
- *
- * @author JOSUÉ
- */
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @WebServlet(name = "ClienteServlet", urlPatterns = {"/ClienteServlet"})
 public class ClienteServlet extends HttpServlet {
 
+    private final ClienteService clienteService = new ClienteService();
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<ClienteDTO> listaClientes = clienteService.listarClientes();
+        request.setAttribute("listaClientes", listaClientes);
+        request.getRequestDispatcher("cliente.jsp").forward(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String accion = request.getParameter("accion");
-        ClienteDAO dao = new ClienteDAO();
 
         if ("registrar".equals(accion)) {
-            // Recoger datos del JSP (registroCliente.jsp)
-            String nom = request.getParameter("txtnombre");
-            String ape = request.getParameter("txtapellido");
-            String dni = request.getParameter("txtdni");
-            String tel = request.getParameter("txttelefono");
-            String cor = request.getParameter("txtcorreo");
-
-            Cliente c = new Cliente();
-            c.setNombre(nom);
-            c.setApellido(ape);
-            c.setDni(dni);
-            c.setTelefono(tel);
-            c.setCorreo(cor);
-
-            dao.registrar(c);
+            ClienteDTO cliente = new ClienteDTO();
+            cliente.setNombre(request.getParameter("txtnombre"));
+            cliente.setApellido(request.getParameter("txtapellido"));
+            cliente.setDni(request.getParameter("txtdni"));
+            cliente.setTelefono(request.getParameter("txttelefono"));
+            cliente.setCorreo(request.getParameter("txtcorreo"));
+            boolean registrado = clienteService.registrarCliente(cliente);
+            if (registrado) {
+                response.sendRedirect("ClienteServlet?msg=registrado");
+            } else {
+                response.sendRedirect("registroCliente.jsp?error=datos_invalidos"
+                        + "&txtnombre=" + encode(request.getParameter("txtnombre"))
+                        + "&txtapellido=" + encode(request.getParameter("txtapellido"))
+                        + "&txtdni=" + encode(request.getParameter("txtdni"))
+                        + "&txttelefono=" + encode(request.getParameter("txttelefono"))
+                        + "&txtcorreo=" + encode(request.getParameter("txtcorreo")));
+            }
+            return;
 
         } else if ("actualizar".equals(accion)) {
-            // Recoger datos + id (editarCliente.jsp)
-            int id = Integer.parseInt(request.getParameter("id"));
-            String nom = request.getParameter("txtnombre");
-            String ape = request.getParameter("txtapellido");
-            String dni = request.getParameter("txtdni");
-            String tel = request.getParameter("txttelefono");
-            String cor = request.getParameter("txtcorreo");
-
-            Cliente c = new Cliente();
-            c.setId(id);
-            c.setNombre(nom);
-            c.setApellido(ape);
-            c.setDni(dni);
-            c.setTelefono(tel);
-            c.setCorreo(cor);
-
-            dao.actualizar(c);
+            ClienteDTO cliente = new ClienteDTO();
+            cliente.setId(parseEntero(request.getParameter("id")));
+            cliente.setNombre(request.getParameter("txtnombre"));
+            cliente.setApellido(request.getParameter("txtapellido"));
+            cliente.setDni(request.getParameter("txtdni"));
+            cliente.setTelefono(request.getParameter("txttelefono"));
+            cliente.setCorreo(request.getParameter("txtcorreo"));
+            clienteService.actualizarCliente(cliente);
 
         } else if ("eliminar".equals(accion)) {
-            // Solo necesita el id para borrarlo
-            int id = Integer.parseInt(request.getParameter("id"));
-            dao.eliminar(id);
+            int id = parseEntero(request.getParameter("id"));
+            clienteService.eliminarCliente(id);
         }
 
-        // Al terminar cualquier acción, redirige a la lista de clientes
-        response.sendRedirect("cliente.jsp");
+        response.sendRedirect("ClienteServlet");
+    }
+
+    private int parseEntero(String valor) {
+        try {
+            return Integer.parseInt(valor);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    private String encode(String valor) {
+        if (valor == null) {
+            return "";
+        }
+        return URLEncoder.encode(valor, StandardCharsets.UTF_8);
     }
 }
-

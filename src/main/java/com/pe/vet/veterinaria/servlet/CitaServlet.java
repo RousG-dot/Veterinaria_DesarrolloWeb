@@ -1,25 +1,39 @@
-
 package com.pe.vet.veterinaria.servlet;
-import com.pe.vet.veterinaria.dao.CitaDAO;
-import com.pe.vet.veterinaria.model.Cita;
 
+import com.pe.vet.veterinaria.dao.MascotaDAO;
+import com.pe.vet.veterinaria.dto.CitaDTO;
+import com.pe.vet.veterinaria.model.Mascota;
+import com.pe.vet.veterinaria.service.CitaService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @WebServlet("/CitaServlet")
 public class CitaServlet extends HttpServlet {
-    private CitaDAO dao = new CitaDAO();
+
+    private final CitaService citaService = new CitaService();
+    private final MascotaDAO mascotaDAO = new MascotaDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Cita> lista = dao.listar();
-        request.setAttribute("listaCitas", lista);
+        String vista = request.getParameter("vista");
+
+        if ("registro".equals(vista)) {
+            List<Mascota> listaMascotas = mascotaDAO.listar();
+            request.setAttribute("listaMascotas", listaMascotas);
+            request.getRequestDispatcher("registroCita.jsp").forward(request, response);
+            return;
+        }
+
+        List<CitaDTO> listaCitas = citaService.listarCitas();
+        request.setAttribute("listaCitas", listaCitas);
         request.getRequestDispatcher("listarCitas.jsp").forward(request, response);
     }
 
@@ -28,34 +42,74 @@ public class CitaServlet extends HttpServlet {
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
 
-        if ("Agregar".equals(accion)) {
-            Cita c = new Cita();
-            c.setCliente(request.getParameter("cliente"));
-            c.setMascota(request.getParameter("mascota"));
-            c.setFecha(request.getParameter("fecha"));
-            c.setHora(request.getParameter("hora"));
-            c.setMotivo(request.getParameter("motivo"));
-            dao.registrar(c);
-            response.sendRedirect("CitaServlet");
+        if ("registrar".equals(accion)) {
+            CitaDTO cita = construirCitaDesdeRequest(request);
+            boolean registrada = citaService.registrarCita(cita);
+
+            if (registrada) {
+                response.sendRedirect("CitaServlet?msg=registrada");
+            } else {
+                response.sendRedirect("CitaServlet?vista=registro&error=datos_invalidos"
+                        + "&cliente=" + encode(request.getParameter("cliente"))
+                        + "&mascota=" + encode(request.getParameter("mascota"))
+                        + "&fecha=" + encode(request.getParameter("fecha"))
+                        + "&hora=" + encode(request.getParameter("hora"))
+                        + "&motivo=" + encode(request.getParameter("motivo")));
+            }
+            return;
         }
 
-        if ("Editar".equals(accion)) {
-            Cita c = new Cita();
-            c.setId(Integer.parseInt(request.getParameter("id")));
-            c.setCliente(request.getParameter("cliente"));
-            c.setMascota(request.getParameter("mascota"));
-            c.setFecha(request.getParameter("fecha"));
-            c.setHora(request.getParameter("hora"));
-            c.setMotivo(request.getParameter("motivo"));
-            dao.actualizar(c);
-            response.sendRedirect("CitaServlet");
+        if ("actualizar".equals(accion)) {
+            CitaDTO cita = construirCitaDesdeRequest(request);
+            cita.setId(parseEntero(request.getParameter("id")));
+            boolean actualizada = citaService.actualizarCita(cita);
+
+            if (actualizada) {
+                response.sendRedirect("CitaServlet?msg=actualizada");
+            } else {
+                response.sendRedirect("CitaServlet?vista=registro&error=datos_invalidos"
+                        + "&id=" + cita.getId()
+                        + "&cliente=" + encode(request.getParameter("cliente"))
+                        + "&mascota=" + encode(request.getParameter("mascota"))
+                        + "&fecha=" + encode(request.getParameter("fecha"))
+                        + "&hora=" + encode(request.getParameter("hora"))
+                        + "&motivo=" + encode(request.getParameter("motivo")));
+            }
+            return;
         }
 
-        if ("Eliminar".equals(accion)) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            dao.eliminar(id);
-            response.sendRedirect("CitaServlet");
+        if ("eliminar".equals(accion)) {
+            int id = parseEntero(request.getParameter("id"));
+            citaService.eliminarCita(id);
+            response.sendRedirect("CitaServlet?msg=eliminada");
+            return;
+        }
+
+        response.sendRedirect("CitaServlet?error=accion_invalida");
+    }
+
+    private CitaDTO construirCitaDesdeRequest(HttpServletRequest request) {
+        CitaDTO cita = new CitaDTO();
+        cita.setCliente(request.getParameter("cliente"));
+        cita.setMascota(request.getParameter("mascota"));
+        cita.setFecha(request.getParameter("fecha"));
+        cita.setHora(request.getParameter("hora"));
+        cita.setMotivo(request.getParameter("motivo"));
+        return cita;
+    }
+
+    private int parseEntero(String valor) {
+        try {
+            return Integer.parseInt(valor);
+        } catch (NumberFormatException e) {
+            return 0;
         }
     }
-}
 
+    private String encode(String valor) {
+        if (valor == null) {
+            return "";
+        }
+        return URLEncoder.encode(valor, StandardCharsets.UTF_8);
+    }
+}

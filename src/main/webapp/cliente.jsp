@@ -1,7 +1,5 @@
-<%@page import="com.pe.vet.veterinaria.model.Cliente"%>
-<%@page import="java.util.List"%>
-<%@page import="com.pe.vet.veterinaria.dao.ClienteDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -16,7 +14,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">PetSociety Admin</div>
             <nav class="nav-links">
-                <a href="cliente.jsp" class="nav-link active">
+                <a href="ClienteServlet" class="nav-link active">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
                     Clientes
                 </a>
@@ -49,7 +47,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>N°</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>DNI</th>
@@ -59,33 +57,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <%
-                            ClienteDAO dao = new ClienteDAO();
-                            List<Cliente> lista = dao.listar();
-                            for(Cliente c : lista) {
-                        %>
-                        <tr>
-                            <td><%= c.getId() %></td>
-                            <td><%= c.getNombre() %></td>
-                            <td><%= c.getApellido() %></td>
-                            <td><%= c.getDni() %></td>
-                            <td><%= c.getTelefono() %></td>
-                            <td><%= c.getCorreo() %></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="editarCliente.jsp?id=<%= c.getId() %>&nombre=<%= c.getNombre() %>&apellido=<%= c.getApellido() %>&dni=<%= c.getDni() %>&telefono=<%= c.getTelefono() %>&correo=<%= c.getCorreo() %>" class="btn-action btn-edit">Editar</a>
-                                    
-                                    <form action="ClienteServlet" method="POST" class="inline-form" onsubmit="return confirm('¿Estás seguro de eliminar esta mascota?')">
-                                        <input type="hidden" name="accion" value="eliminar">
-                                        <input type="hidden" name="id" value="<%= c.getId() %>">
-                                        <button type="submit" class="btn-action btn-delete">Eliminar</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        <%
-                            }
-                        %>
+                        <c:forEach var="cliente" items="${listaClientes}" varStatus="status">
+                            <tr>
+                                <td>${status.count}</td>
+                                <td>${cliente.nombre}</td>
+                                <td>${cliente.apellido}</td>
+                                <td>${cliente.dni}</td>
+                                <td>${cliente.telefono}</td>
+                                <td>${cliente.correo}</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <c:url var="editarClienteUrl" value="editarCliente.jsp">
+                                            <c:param name="id" value="${cliente.id}" />
+                                            <c:param name="nombre" value="${cliente.nombre}" />
+                                            <c:param name="apellido" value="${cliente.apellido}" />
+                                            <c:param name="dni" value="${cliente.dni}" />
+                                            <c:param name="telefono" value="${cliente.telefono}" />
+                                            <c:param name="correo" value="${cliente.correo}" />
+                                        </c:url>
+                                        <a href="${editarClienteUrl}" class="btn-action btn-edit">Editar</a>
+
+                                        <form action="ClienteServlet" method="POST" class="inline-form" onsubmit="return confirm('¿Estás seguro de eliminar este cliente?')">
+                                            <input type="hidden" name="accion" value="eliminar">
+                                            <input type="hidden" name="id" value="${cliente.id}">
+                                            <button type="submit" class="btn-action btn-delete">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
 

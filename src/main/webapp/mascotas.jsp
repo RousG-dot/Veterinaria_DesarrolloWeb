@@ -16,7 +16,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">PetSociety Admin</div>
             <nav class="nav-links">
-                <a href="cliente.jsp" class="nav-link">
+                <a href="ClienteServlet" class="nav-link">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
                     Clientes
                 <a href="mascotas.jsp" class="nav-link active">
@@ -48,7 +48,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>N°</th>
                             <th>Nombre</th>
                             <th>Especie</th>
                             <th>Raza</th>
@@ -60,10 +60,11 @@
                         <%
                             MascotaDAO dao = new MascotaDAO();
                             List<Mascota> lista = dao.listar();
+                            int contador = 1;
                             for(Mascota m : lista) {
                         %>
                         <tr>
-                            <td><%= m.getId() %></td>
+                            <td><%= contador++ %></td>
                             <td><%= m.getNombre() %></td>
                             <td><%= m.getEspecie() %></td>
                             <td><%= m.getRaza() %></td>

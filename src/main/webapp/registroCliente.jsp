@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -12,14 +13,14 @@
         <aside class="sidebar">
             <div class="sidebar-header">PetSociety Admin</div>
             <nav class="nav-links">
-                <a href="clientes.jsp" class="nav-link active">
+                <a href="ClienteServlet" class="nav-link active">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
                     Clientes
+                </a>
                 <a href="mascotas.jsp" class="nav-link">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     Mascotas
                 </a>
-
                 <a href="registroCita.jsp" class="nav-link">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                     Citas
@@ -39,35 +40,38 @@
             <div class="form-card">
                 <h1 class="header-title">Registrar Cliente</h1>
                 <p class="header-subtitle">Ingrese los datos personales del dueño</p>
-                
-                <form action="ClienteServlet" method="POST">
+                <c:if test="${param.error == 'datos_invalidos'}">
+                    <p class="header-subtitle">No se pudo registrar. Verifica nombre, apellido, DNI de 8 dígitos y teléfono de 9 dígitos.</p>
+                </c:if>
+
+                <form action="${pageContext.request.contextPath}/ClienteServlet" method="POST">
                     <input type="hidden" name="accion" value="registrar">
-                    
+
                     <div class="form-group">
                         <label>Nombres</label>
-                        <input type="text" name="txtnombre" placeholder="Ej. Juan Carlos" required>
+                        <input type="text" name="txtnombre" value="${param.txtnombre}" placeholder="Ej. Juan Carlos" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Apellidos</label>
-                        <input type="text" name="txtapellido" placeholder="Ej. Pérez Gómez" required>
+                        <input type="text" name="txtapellido" value="${param.txtapellido}" placeholder="Ej. Pérez Gómez" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>DNI</label>
-                        <input type="text" name="txtdni" placeholder="Número de 8 dígitos" maxlength="8" required>
+                        <input type="text" name="txtdni" value="${param.txtdni}" placeholder="Número de 8 dígitos" maxlength="8" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Teléfono</label>
-                        <input type="tel" name="txttelefono" placeholder="Ej. 987654321" required>
+                        <input type="tel" name="txttelefono" value="${param.txttelefono}" placeholder="Ej. 987654321" required>
                     </div>
 
                     <div class="form-group">
                         <label>Correo Electrónico</label>
-                        <input type="email" name="txtcorreo" placeholder="ejemplo@correo.com" required>
+                        <input type="email" name="txtcorreo" value="${param.txtcorreo}" placeholder="ejemplo@correo.com" required>
                     </div>
-                    
+
                     <button type="submit" class="btn-primary">Guardar Cliente</button>
                 </form>
 
