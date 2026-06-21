@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 
         // 3. Lógica de acceso
         if (user != null) {
-            // SI DATOS CORRECTOS: Creamos sesión y vamos al panel
+            // SI DATOS CORRECTOS: Creamos sesión y vamos al dashboard
             HttpSession session = request.getSession();
             session.setAttribute("usuarioLogueado", user);
             response.sendRedirect(request.getContextPath() + "/jsf/dashboard.xhtml");
